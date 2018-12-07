@@ -20,7 +20,7 @@ function newWord() {
   // reset
   incorrectLetters = [];
   correctLetters = [];
-  guesses = 10;
+  guesses = 8;
   updateLettersGuessed();
   updateGuesses();
   
