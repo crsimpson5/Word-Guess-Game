@@ -1,4 +1,5 @@
 var words = ["space shuttle", "booster", "orbital rendezvous", "lunar lander", "all systems nominal", "launch pad", "go at throttle up"];
+var acceptedLetters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 var incorrectLetters = [];
 var correctLetters = [];
 
@@ -134,12 +135,14 @@ document.onkeyup = function (event) {
 
   var input = event.key.toLowerCase();
 
-  checkInput(input);
+  // only run if it's a letter key
+  if (acceptedLetters.indexOf(input) > -1) {
+    checkInput(input);
 
-  // if out of guesses go to new word and display last word
-  if (guesses <= 0) {
-    showPreviousWord();
-    newWord();
+    // if out of guesses go to new word and display last word
+    if (guesses <= 0) {
+      showPreviousWord();
+      newWord();
+    }
   }
-
 };
