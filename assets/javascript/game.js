@@ -1,9 +1,9 @@
-var words = ["potato", "apple"];
+var words = ["space shuttle", "booster", "orbital rendezvous", "lunar lander", "all systems nominal", "launch pad", "go at throttle up"];
 var incorrectLetters = [];
 var correctLetters = [];
 
 var wins = 0;
-var guesses = 12;
+var guesses;
 var wordIndex = -1;
 
 // goes to next word on list and displays "_" for each letter
@@ -16,26 +16,30 @@ function newWord() {
     wordIndex = 0;
   }
 
+  // reset
+  incorrectLetters = [];
   correctLetters = [];
-  document.querySelector("#currentWord").textContent = "Current Word\n"
+  guesses = 10;
+  updateLettersGuessed();
+  updateGuesses();
+  
+  document.querySelector("#currentWord").textContent = "Current Word: "
 
   // create new span element for each letter
   for (var i = 0; i < words[wordIndex].length; i++) {
     newLetter = document.createElement("span");
 
+    if (words[wordIndex].charAt(i) === " ") {
+      newLetter.textContent = " ";
+    } else {
+      newLetter.textContent = "_";
+    }
+    
     newLetter.setAttribute("letter", words[wordIndex].charAt(i));
-    newLetter.setAttribute("class", "letters");
-    newLetter.textContent = "_";
-
-    document.querySelector("#currentWord").append(newLetter);
     correctLetters.push(newLetter);
+    newLetter.setAttribute("class", "letters");
+    document.querySelector("#currentWord").append(newLetter);
   }
-
-  // reset
-  incorrectLetters = [];
-  guesses = 12;
-  updateLettersGuessed();
-  updateGuesses();
 }
 
 // displays number of wins
@@ -73,7 +77,8 @@ function checkInput(userGuess) {
     if (completedWord) {
       wins++;
       updateWins();
-      newWord();
+      showPreviousWord();
+      newWord(); 
     }
 
   } else {
@@ -115,12 +120,8 @@ function updateLettersGuessed() {
 }
 
 // display the previous word
-function showPreviousWord(wonGame) {
-  if (wonGame) {
-    
-  } else {
-    document.getElementById("previous-word").text
-  }
+function showPreviousWord() {
+  document.getElementById("previous-word").textContent = "Previous word/phrase: " + words[wordIndex];
 }
 
 // Initial calls to set display
@@ -137,11 +138,8 @@ document.onkeyup = function (event) {
 
   // if out of guesses go to new word and display last word
   if (guesses <= 0) {
-    showPreviousWord(false);
+    showPreviousWord();
     newWord();
   }
 
 };
-
-
-
